@@ -15,13 +15,13 @@ public class DailyBonusUI : MonoBehaviour {
 
         claimButton.onClick.AddListener(() => {
             ClaimCurrentCard();
-            BonusesManager.Instance.ClaimBonus();
+            BonusManager.Instance.ClaimBonus();
         });
     }
 
     private void UpdateBonusCards() {
-        List<Bonus> bonuses = BonusesManager.Instance.GetDailyBonuses();
-        currentCard = BonusesManager.Instance.GetStreakDay();
+        List<Bonus> bonuses = BonusManager.Instance.GetDailyBonuses();
+        currentCard = BonusManager.Instance.GetStreakDay();
 
         for (int i = 0; i < bonusCards.Count; i++) {
 
@@ -40,7 +40,7 @@ public class DailyBonusUI : MonoBehaviour {
             }
         }
 
-        if (BonusesManager.Instance.IsClaimed()) {
+        if (BonusManager.Instance.IsClaimed()) {
             ClaimCurrentCard();
         }
     }
