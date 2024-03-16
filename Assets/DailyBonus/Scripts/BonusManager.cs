@@ -4,15 +4,12 @@ using System;
 
 public class BonusManager : MonoBehaviour {
 
-    public static BonusManager Instance { get; private set; }
-
+    [SerializeField] List<ItemSO> ItemSOs;
     private List<Bonus> DailyBonuses;
     private int streakDay = 0;
     private bool claimed = false;
     
     private void Awake() {
-        Instance = this;
-
         LoadBonuses();
 
         CheckStreak();
@@ -29,20 +26,18 @@ public class BonusManager : MonoBehaviour {
 
     public void CheckStreak() {
         DateTime lastTimeVisited = GetLastTimeVisited();
-        DateTime currentTime = DateTime.UtcNow;
+        DateTime currentTime = DateTime.Now;
         streakDay = LoadStreakDay();
-        
-        TimeSpan difference = currentTime - lastTimeVisited;
 
-        int daysDifference = difference.Days;
-
-        if (daysDifference > 1) {
-            streakDay = 0;
-        } else if (daysDifference == 1) {
-            streakDay++;
+        if (lastTimeVisited.Date < currentTime.Date) {
+            if (lastTimeVisited.Date != DateTime.Today.AddDays(-1)) {
+                streakDay = 0;
+            } else {
+                streakDay++;
+            }
         }
 
-        if (daysDifference != 0) {
+        if (lastTimeVisited.Date != currentTime.Date) {
             claimed = false;
         } else {
             claimed = PlayerPrefs.GetInt("IsClaimed", 0) == 1;
@@ -63,7 +58,7 @@ public class BonusManager : MonoBehaviour {
             return savedTime;
         }
 
-        return DateTime.UtcNow;
+        return DateTime.Now;
     }
 
     private void SaveParameters() {
@@ -74,7 +69,7 @@ public class BonusManager : MonoBehaviour {
     }
 
     private void SaveLastTimeVisited() {
-        string currentTime = DateTime.UtcNow.ToString();
+        string currentTime = DateTime.Now.ToString();
         PlayerPrefs.SetString("LastTimeVisited", currentTime);
     }
 
@@ -87,7 +82,13 @@ public class BonusManager : MonoBehaviour {
     }
 
     public ItemSO GetBonusItem(string reference) {
-        return Resources.Load<ItemSO>($"ScriptableObjects/{reference}");
+        foreach (ItemSO item in ItemSOs) {
+            if (item.name == reference) {
+                return item;
+            }
+        }
+
+        return null;
     }
 
     public int GetStreakDay() {

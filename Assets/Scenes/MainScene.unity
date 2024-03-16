@@ -656,6 +656,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc213966b0479a84f86f745ae3e5fe66, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bonusManager: {fileID: 1387192959}
   bonusCards:
   - {fileID: 1483956181}
   - {fileID: 384808651}
@@ -1686,6 +1687,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0b70e01df3a88f43837426bd99f907d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ItemSOs:
+  - {fileID: 11400000, guid: b45fb28dc1c62a74c8958233d994b803, type: 2}
+  - {fileID: 11400000, guid: 4dba877fd2a478f4fa9ff54e6b7395af, type: 2}
+  - {fileID: 11400000, guid: 28f83fc6024c11f4c8e2e53cfdf95ff1, type: 2}
+  - {fileID: 11400000, guid: 5f64f756f06b85c489a288aeff8b9dd7, type: 2}
+  - {fileID: 11400000, guid: 3e32c6e5e070e00489660fb929083c32, type: 2}
+  - {fileID: 11400000, guid: 912445446ae38614f93c7a5dcb25ccd8, type: 2}
+  - {fileID: 11400000, guid: 302c450ffab7ecc4fb37e975455c4a46, type: 2}
 --- !u!1 &1483956181 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 9179722558472245615, guid: fbb95cc3fff917b41b694f343315639d,

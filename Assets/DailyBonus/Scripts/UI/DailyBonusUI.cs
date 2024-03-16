@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class DailyBonusUI : MonoBehaviour {
 
+    [SerializeField] private BonusManager bonusManager;
     [SerializeField] private List<GameObject> bonusCards;
     [SerializeField] private Button claimButton;
 
@@ -15,13 +16,14 @@ public class DailyBonusUI : MonoBehaviour {
 
         claimButton.onClick.AddListener(() => {
             ClaimCurrentCard();
-            BonusManager.Instance.ClaimBonus();
+            
+            bonusManager.ClaimBonus();
         });
     }
 
     private void UpdateBonusCards() {
-        List<Bonus> bonuses = BonusManager.Instance.GetDailyBonuses();
-        currentCard = BonusManager.Instance.GetStreakDay();
+        List<Bonus> bonuses = bonusManager.GetDailyBonuses();
+        currentCard = bonusManager.GetStreakDay();
 
         for (int i = 0; i < bonusCards.Count; i++) {
 
@@ -40,8 +42,11 @@ public class DailyBonusUI : MonoBehaviour {
             }
         }
 
-        if (BonusManager.Instance.IsClaimed()) {
-            ClaimCurrentCard();
+        if (bonusManager.IsClaimed()) {
+            if (currentCard < bonusCards.Count - 1) {
+                ClaimCurrentCard();
+            }
+
         }
     }
 
