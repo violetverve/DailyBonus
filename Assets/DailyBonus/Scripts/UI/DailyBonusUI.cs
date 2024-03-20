@@ -3,57 +3,67 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class DailyBonusUI : MonoBehaviour {
+public class DailyBonusUI : MonoBehaviour
+{
+    [SerializeField] private List<BonusCardUI> _bonusCardList;
+    [SerializeField] private Button _claimButton;
+    private int _streakDay;
 
-    [SerializeField] private BonusManager bonusManager;
-    [SerializeField] private List<GameObject> bonusCards;
-    [SerializeField] private Button claimButton;
-
-    private int currentCard = 0;
-
-    private void Start() {
+    private void Start()
+    {   
         UpdateBonusCards();
 
-        claimButton.onClick.AddListener(() => {
+        _claimButton.onClick.AddListener(() =>
+        {
             ClaimCurrentCard();
-            
-            bonusManager.ClaimBonus();
+            BonusManagerFacade.Instance.ClaimBonus();
         });
     }
 
-    private void UpdateBonusCards() {
-        List<Bonus> bonuses = bonusManager.GetDailyBonuses();
-        currentCard = bonusManager.GetStreakDay();
+    private void UpdateBonusCards()
+    {
+        List<Bonus> bonuses = BonusManagerFacade.Instance.GetBonusList();
 
-        for (int i = 0; i < bonusCards.Count; i++) {
+        _streakDay = BonusManagerFacade.Instance.GetStreakDay();
 
-            BonusCardUI bonusCardUI = bonusCards[i].GetComponent<BonusCardUI>();
+        for (int i = 0; i < _bonusCardList.Count; i++)
+        {
+            var bonusCardUI = _bonusCardList[i];
 
-            if (i < currentCard) {
+            if (i < _streakDay)
+            {
                 bonusCardUI.SetClaimed();
-            } else if (i == currentCard) {
+            }
+            else if (i == _streakDay)
+            {
                 bonusCardUI.SetCurrent();
             }
 
-            if (i < bonuses.Count) {
+            if (i < bonuses.Count)
+            {
                 bonusCardUI.SetCard(bonuses[i]);
-            } else {
-                bonusCards[i].SetActive(false);
+            }
+            else
+            {
+                _bonusCardList[i].SetActive(false);
             }
         }
 
-        if (bonusManager.IsClaimed()) {
-            if (currentCard < bonusCards.Count - 1) {
+        if (BonusManagerFacade.Instance.GetIsClaimed())
+        {
+            if (_streakDay < _bonusCardList.Count - 1)
+            {
                 ClaimCurrentCard();
             }
 
         }
     }
 
-    private void ClaimCurrentCard() {
-        BonusCardUI bonusCardUI = bonusCards[currentCard].GetComponent<BonusCardUI>();
+    private void ClaimCurrentCard()
+    {
+        BonusCardUI bonusCardUI = _bonusCardList[_streakDay];
         bonusCardUI.SetClaimed();
-        claimButton.interactable = false;
+        _claimButton.interactable = false;
     }
 
 

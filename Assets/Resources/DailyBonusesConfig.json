@@ -2,37 +2,37 @@
     "dailyBonuses": [
       {
         "day": 1,
-        "reference": "Coin",
+        "id": "Coin",
         "quantity": 100
       },
       {
         "day": 2,
-        "reference": "GemBlue",
+        "id": "GemBlue",
         "quantity": 10
       },
       {
         "day": 3,
-        "reference": "PotionGreen",
+        "id": "PotionGreen",
         "quantity": 1
       },
       {
         "day": 4,
-        "reference": "Scroll",
+        "id": "Scroll",
         "quantity": 5
       },
       {
         "day": 5,
-        "reference": "Bow",
+        "id": "Bow",
         "quantity": 1
       },
       {
         "day": 6,
-        "reference": "PotionGreen",
+        "id": "PotionGreen",
         "quantity": 2
       },
       {
         "day": 7,
-        "reference": "GemYellow",
+        "id": "GemYellow",
         "quantity": 50
       }
     ]

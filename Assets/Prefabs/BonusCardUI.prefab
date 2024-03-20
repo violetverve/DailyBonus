@@ -844,8 +844,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb94bf567404eec41a15d9a3e6e4653f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dayText: {fileID: 2695084660956900980}
-  quantityText: {fileID: 4352349026555935538}
-  iconImage: {fileID: 2013507750096380732}
-  claimedPanel: {fileID: 1931209718409991916}
-  currentPanel: {fileID: 3405791989924724752}
+  _dayText: {fileID: 2695084660956900980}
+  _quantityText: {fileID: 4352349026555935538}
+  _iconImage: {fileID: 2013507750096380732}
+  _claimedPanel: {fileID: 1931209718409991916}
+  _currentPanel: {fileID: 3405791989924724752}

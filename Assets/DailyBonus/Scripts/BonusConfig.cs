@@ -4,6 +4,14 @@ using UnityEngine;
 using System;
 
 [Serializable]
-public class BonusConfig {
-    public List<Bonus> dailyBonuses;
+public class BonusConfig
+{
+    private List<Bonus> _dailyBonuses;
+
+    public List<Bonus> DailyBonuses => _dailyBonuses;
+
+    public BonusConfig(List<Bonus> dailyBonuses)
+    {
+        _dailyBonuses = dailyBonuses;
+    }
 }

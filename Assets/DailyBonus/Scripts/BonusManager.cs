@@ -1,112 +1,108 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using System.Linq;
 
-public class BonusManager : MonoBehaviour {
 
-    [SerializeField] List<ItemSO> ItemSOs;
-    private List<Bonus> DailyBonuses;
-    private int streakDay = 0;
-    private bool claimed = false;
-    
-    private void Awake() {
-        LoadBonuses();
+public class BonusManager : MonoBehaviour
+{
+    private const string IS_CLAIMED = "IsClaimed";
+    private const string STREAK_DAY = "StreakDay";
+    private const string LAST_TIME_VISITED = "LastTimeVisited";
 
+    private int _streakDay = 0;
+    private bool _claimed = false;
+
+    private void Awake()
+    {
         CheckStreak();
-    }
 
-
-    private void LoadBonuses() {
-        DailyBonuses = BonusConfigParser.LoadBonusesConfig();
-
-        foreach (Bonus bonus in DailyBonuses) {
-            bonus.bonusItem = GetBonusItem(bonus.reference);
-        }
-    }
-
-    public void CheckStreak() {
-        DateTime lastTimeVisited = GetLastTimeVisited();
-        DateTime currentTime = DateTime.Now;
-        streakDay = LoadStreakDay();
-
-        if (lastTimeVisited.Date < currentTime.Date) {
-            if (lastTimeVisited.Date != DateTime.Today.AddDays(-1)) {
-                streakDay = 0;
-            } else {
-                streakDay++;
-            }
-        }
-
-        if (lastTimeVisited.Date != currentTime.Date) {
-            claimed = false;
-        } else {
-            claimed = PlayerPrefs.GetInt("IsClaimed", 0) == 1;
-        }
+        CheckClaimed();
 
         SaveParameters();
     }
 
+    public void CheckStreak()
+    {
+        DateTime lastTimeVisited = GetLastTimeVisited();
+        DateTime currentTime = DateTime.Now;
+        _streakDay = LoadStreakDay();
 
-    private int LoadStreakDay() {
-        return PlayerPrefs.GetInt("StreakDay", -1);
+        if (lastTimeVisited.Date < currentTime.Date)
+        {
+            if (lastTimeVisited.Date != DateTime.Today.AddDays(-1))
+            {
+                _streakDay = 0;
+            }
+            else
+            {
+                _streakDay++;
+            }
+        }
+
+        if (lastTimeVisited.Date != currentTime.Date) {
+            _claimed = false;
+        } else {
+            _claimed = PlayerPrefs.GetInt(IS_CLAIMED, 0) == 1;
+        }
     }
 
-    private DateTime GetLastTimeVisited() {
-        string savedTimeString = PlayerPrefs.GetString("LastTimeVisited");
+    private void CheckClaimed()
+    {
+        _claimed = PlayerPrefs.GetInt(IS_CLAIMED, 0) == 1;
+    }
 
-        if (DateTime.TryParse(savedTimeString, out DateTime savedTime)) {
+    private int LoadStreakDay()
+    {
+        return PlayerPrefs.GetInt(STREAK_DAY, -1);
+    }
+
+    private DateTime GetLastTimeVisited()
+    {
+        string savedTimeString = PlayerPrefs.GetString(LAST_TIME_VISITED);
+
+        if (DateTime.TryParse(savedTimeString, out DateTime savedTime))
+        {
             return savedTime;
         }
 
         return DateTime.Now;
     }
 
-    private void SaveParameters() {
+    private void SaveParameters()
+    {
         SaveLastTimeVisited();
         SaveStreakDay();
 
         PlayerPrefs.Save();
     }
 
-    private void SaveLastTimeVisited() {
+    private void SaveLastTimeVisited()
+    {
         string currentTime = DateTime.Now.ToString();
-        PlayerPrefs.SetString("LastTimeVisited", currentTime);
+        PlayerPrefs.SetString(LAST_TIME_VISITED, currentTime);
     }
 
-    private void SaveStreakDay() {
-        PlayerPrefs.SetInt("StreakDay", streakDay);
+    private void SaveStreakDay()
+    {
+        PlayerPrefs.SetInt(STREAK_DAY, _streakDay);
     }
 
-    public List<Bonus> GetDailyBonuses() {
-        return DailyBonuses;
+    public int GetStreakDay()
+    {
+        return _streakDay;
     }
 
-    public ItemSO GetBonusItem(string reference) {
-        foreach (ItemSO item in ItemSOs) {
-            if (item.name == reference) {
-                return item;
-            }
-        }
-
-        return null;
+    public bool GetIsClaimed()
+    {
+        return _claimed;
     }
 
-    public int GetStreakDay() {
-        return streakDay;
+    public void ClaimBonus()
+    {
+        _claimed = true;
+
+        PlayerPrefs.SetInt(IS_CLAIMED, _claimed ? 1 : 0);
     }
 
-    public Bonus GetCurrentBonus() {
-        return DailyBonuses[streakDay];
-    }
-
-    public bool IsClaimed() {
-        return claimed;
-    }
-
-    public void ClaimBonus() {
-        claimed = true;
-
-        PlayerPrefs.SetInt("IsClaimed", claimed? 1 : 0);
-    }
-   
 }

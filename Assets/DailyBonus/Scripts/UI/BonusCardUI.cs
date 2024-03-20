@@ -5,27 +5,35 @@ using UnityEngine.UI;
 using TMPro;
 
 
-public class BonusCardUI : MonoBehaviour {
+public class BonusCardUI : MonoBehaviour
+{
+    [SerializeField] private TextMeshProUGUI _dayText;
+    [SerializeField] private TextMeshProUGUI _quantityText;
+    [SerializeField] private Image _iconImage;
 
-    [SerializeField] private TextMeshProUGUI dayText;
-    [SerializeField] private TextMeshProUGUI quantityText;
-    [SerializeField] private Image iconImage;
+    [SerializeField] private GameObject _claimedPanel;
+    [SerializeField] private GameObject _currentPanel;
 
-    [SerializeField] private GameObject claimedPanel;
-    [SerializeField] private GameObject currentPanel;
-
-    public void SetCard(Bonus dailyBonus) {
-        dayText.text = "DAY " + dailyBonus.day.ToString();
-        quantityText.text = dailyBonus.quantity.ToString();
-        iconImage.sprite = dailyBonus.bonusItem.icon;
+    public void SetCard(Bonus dailyBonus)
+    {
+        _dayText.text = "DAY " + dailyBonus.Day.ToString();
+        _quantityText.text = dailyBonus.Quantity.ToString();
+        _iconImage.sprite = BonusManagerFacade.Instance.GetItemById(dailyBonus.Id).icon;
     }
 
-    public void SetClaimed() {
-        claimedPanel.SetActive(true);
+    public void SetClaimed()
+    {
+        _claimedPanel.SetActive(true);
     }
 
-    public void SetCurrent() {
-        currentPanel.SetActive(true);
+    public void SetCurrent()
+    {
+        _currentPanel.SetActive(true);
+    }
+
+    public void SetActive(bool value)
+    {
+        gameObject.SetActive(value);
     }
 
 }
