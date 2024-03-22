@@ -18,7 +18,7 @@ public class BonusCardUI : MonoBehaviour
     {
         _dayText.text = "DAY " + dailyBonus.Day.ToString();
         _quantityText.text = dailyBonus.Quantity.ToString();
-        _iconImage.sprite = BonusManagerFacade.Instance.GetItemById(dailyBonus.Id).icon;
+        _iconImage.sprite = BonusManagerFacade.Instance.GetItemById(dailyBonus.Id).Icon;
     }
 
     public void SetClaimed()

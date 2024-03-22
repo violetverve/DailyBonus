@@ -7,18 +7,24 @@ using System;
 public class Bonus
 {
     private readonly int _day;
-    private readonly string _id; // change to id (enum)
+    private readonly string _name;
     private readonly int _quantity;
-    public ItemSO bonusItem;
+    private Item _id;
 
     public int Day => _day;
-    public string Id => _id;
+    public string Name => _name;
     public int Quantity => _quantity;
+    public Item Id => _id;
 
-    public Bonus(int day, string id, int quantity)
+    public Bonus(int day, string name, int quantity)
     {
         _day = day;
-        _id = id;
+        _name = name;
         _quantity = quantity;
+    }
+
+    public void SetItemId(Item id)
+    {
+        _id = id;
     }
 }

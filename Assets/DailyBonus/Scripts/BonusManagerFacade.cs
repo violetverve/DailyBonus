@@ -15,7 +15,7 @@ public class BonusManagerFacade : MonoBehaviour
         Instance = this;
     }
 
-    public ItemSO GetItemById(string id)
+    public ItemSO GetItemById(Item id)
     {
         return _itemStorage.GetItemById(id);
     }

@@ -8,8 +8,8 @@ public class ItemStorage : MonoBehaviour
 
     public List<ItemSO> Items => _items;
 
-    public ItemSO GetItemById(string id)
+    public ItemSO GetItemById(Item id)
     {
-        return _items.Find(item => item.name == id);
-    } 
+        return _items.Find(item => item.Id == id);
+    }
 }

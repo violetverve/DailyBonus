@@ -6,6 +6,9 @@ using UnityEngine;
 [CreateAssetMenu()]
 public class ItemSO : ScriptableObject
 {
-    public string itemName;
-    public Sprite icon;
+    [SerializeField] private Item _id;
+    [SerializeField] private Sprite _icon;
+
+    public Item Id => _id;
+    public Sprite Icon => _icon;
 }

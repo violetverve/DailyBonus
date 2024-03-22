@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e479f864e4e7fe54b9a5548bed4378b7, type: 3}
   m_Name: PotionGreen
   m_EditorClassIdentifier: 
-  itemName: PotionGreen
-  icon: {fileID: 21300000, guid: 12fd9125b00b72445b3350b39c5f3708, type: 3}
+  _id: 4
+  _icon: {fileID: 21300000, guid: 12fd9125b00b72445b3350b39c5f3708, type: 3}

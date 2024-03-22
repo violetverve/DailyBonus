@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Collections.Generic;
 using System.IO;
 using Newtonsoft.Json;
+using System;
 
 public class BonusConfigParser: MonoBehaviour
 {
@@ -20,6 +21,8 @@ public class BonusConfigParser: MonoBehaviour
         {
             string jsonText = File.ReadAllText(_filePath);
             _bonusesConfig = JsonConvert.DeserializeObject<BonusConfig>(jsonText);
+
+           SetBonusIds();
         }
         else
         {
@@ -34,6 +37,22 @@ public class BonusConfigParser: MonoBehaviour
     {
         return _bonusesConfig.DailyBonuses;
     }
+
+    private void SetBonusIds()
+    {
+        foreach (var bonus in _bonusesConfig.DailyBonuses)
+        {
+            if (Enum.TryParse(bonus.Name, out Item enumValue))
+            {
+                bonus.SetItemId(enumValue);
+            }
+            else
+            {
+                Debug.LogWarning($"Failed to parse enum value from string '{bonus.Id}' for bonus.");
+            }
+        }
+    }
+
 }
 
 
