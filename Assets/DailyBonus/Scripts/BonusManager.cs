@@ -10,27 +10,25 @@ public class BonusManager : MonoBehaviour
     private const string STREAK_DAY = "StreakDay";
     private const string LAST_TIME_VISITED = "LastTimeVisited";
 
-    private int _streakDay = 0;
-    private bool _claimed = false;
+    private int _streakDay;
+    private bool _isClaimed;
 
     private void Awake()
     {
-        CheckStreak();
+        UpdateStreak();
 
-        CheckClaimed();
+        UpdateClaimed();
 
         SaveParameters();
     }
 
-    public void CheckStreak()
+    public void UpdateStreak()
     {
-        DateTime lastTimeVisited = GetLastTimeVisited();
-        DateTime currentTime = DateTime.Now;
         _streakDay = LoadStreakDay();
 
-        if (lastTimeVisited.Date < currentTime.Date)
+        if (DayChanged())
         {
-            if (lastTimeVisited.Date != DateTime.Today.AddDays(-1))
+            if (StreakBroken())
             {
                 _streakDay = 0;
             }
@@ -39,22 +37,47 @@ public class BonusManager : MonoBehaviour
                 _streakDay++;
             }
         }
-
-        if (lastTimeVisited.Date != currentTime.Date) {
-            _claimed = false;
-        } else {
-            _claimed = PlayerPrefs.GetInt(IS_CLAIMED, 0) == 1;
-        }
     }
 
-    private void CheckClaimed()
+    private bool StreakBroken()
     {
-        _claimed = PlayerPrefs.GetInt(IS_CLAIMED, 0) == 1;
+        DateTime lastTimeVisited = GetLastTimeVisited();
+        DateTime currentTime = DateTime.Now;
+
+        return lastTimeVisited.Date != DateTime.Today.AddDays(-1);
+    }
+
+
+    private void UpdateClaimed()
+    {
+        if (DayChanged())
+        {
+            _isClaimed = false;
+        }
+        else
+        {
+            _isClaimed = LoadClaimed();
+        }
+
+    }
+
+
+    private bool DayChanged()
+    {
+        DateTime lastTimeVisited = GetLastTimeVisited();
+        DateTime currentTime = DateTime.Now;
+
+        return lastTimeVisited.Date != currentTime.Date;
     }
 
     private int LoadStreakDay()
     {
-        return PlayerPrefs.GetInt(STREAK_DAY, -1);
+        return PlayerPrefs.GetInt(STREAK_DAY, 1);
+    }
+
+    private bool LoadClaimed()
+    {
+        return PlayerPrefs.GetInt(IS_CLAIMED, 0) == 1;
     }
 
     private DateTime GetLastTimeVisited()
@@ -73,6 +96,7 @@ public class BonusManager : MonoBehaviour
     {
         SaveLastTimeVisited();
         SaveStreakDay();
+        SaveClaimed();
 
         PlayerPrefs.Save();
     }
@@ -81,6 +105,11 @@ public class BonusManager : MonoBehaviour
     {
         string currentTime = DateTime.Now.ToString();
         PlayerPrefs.SetString(LAST_TIME_VISITED, currentTime);
+    }
+
+    private void SaveClaimed()
+    {
+        PlayerPrefs.SetInt(IS_CLAIMED, _isClaimed ? 1 : 0);
     }
 
     private void SaveStreakDay()
@@ -95,14 +124,14 @@ public class BonusManager : MonoBehaviour
 
     public bool GetIsClaimed()
     {
-        return _claimed;
+        return _isClaimed;
     }
 
     public void ClaimBonus()
     {
-        _claimed = true;
+        _isClaimed = true;
 
-        PlayerPrefs.SetInt(IS_CLAIMED, _claimed ? 1 : 0);
+        SaveClaimed();
     }
 
 }
