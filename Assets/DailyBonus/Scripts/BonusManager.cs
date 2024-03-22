@@ -4,134 +4,137 @@ using System;
 using System.Linq;
 
 
-public class BonusManager : MonoBehaviour
+namespace DailyBonus
 {
-    private const string IS_CLAIMED = "IsClaimed";
-    private const string STREAK_DAY = "StreakDay";
-    private const string LAST_TIME_VISITED = "LastTimeVisited";
-
-    private int _streakDay;
-    private bool _isClaimed;
-
-    private void Awake()
+    public class BonusManager : MonoBehaviour
     {
-        UpdateStreak();
+        private const string IS_CLAIMED = "IsClaimed";
+        private const string STREAK_DAY = "StreakDay";
+        private const string LAST_TIME_VISITED = "LastTimeVisited";
 
-        UpdateClaimed();
+        private int _streakDay;
+        private bool _isClaimed;
 
-        SaveParameters();
-    }
-
-    public void UpdateStreak()
-    {
-        _streakDay = LoadStreakDay();
-
-        if (DayChanged())
+        private void Awake()
         {
-            if (StreakBroken())
+            UpdateStreak();
+
+            UpdateClaimed();
+
+            SaveParameters();
+        }
+
+        public void UpdateStreak()
+        {
+            _streakDay = LoadStreakDay();
+
+            if (DayChanged())
             {
-                _streakDay = 0;
+                if (StreakBroken())
+                {
+                    _streakDay = 0;
+                }
+                else
+                {
+                    _streakDay++;
+                }
+            }
+        }
+
+        private bool StreakBroken()
+        {
+            DateTime lastTimeVisited = GetLastTimeVisited();
+            DateTime currentTime = DateTime.Now;
+
+            return lastTimeVisited.Date != DateTime.Today.AddDays(-1);
+        }
+
+
+        private void UpdateClaimed()
+        {
+            if (DayChanged())
+            {
+                _isClaimed = false;
             }
             else
             {
-                _streakDay++;
+                _isClaimed = LoadClaimed();
             }
+
         }
-    }
-
-    private bool StreakBroken()
-    {
-        DateTime lastTimeVisited = GetLastTimeVisited();
-        DateTime currentTime = DateTime.Now;
-
-        return lastTimeVisited.Date != DateTime.Today.AddDays(-1);
-    }
 
 
-    private void UpdateClaimed()
-    {
-        if (DayChanged())
+        private bool DayChanged()
         {
-            _isClaimed = false;
+            DateTime lastTimeVisited = GetLastTimeVisited();
+            DateTime currentTime = DateTime.Now;
+
+            return lastTimeVisited.Date != currentTime.Date;
         }
-        else
+
+        private int LoadStreakDay()
         {
-            _isClaimed = LoadClaimed();
+            return PlayerPrefs.GetInt(STREAK_DAY, 1);
         }
 
-    }
-
-
-    private bool DayChanged()
-    {
-        DateTime lastTimeVisited = GetLastTimeVisited();
-        DateTime currentTime = DateTime.Now;
-
-        return lastTimeVisited.Date != currentTime.Date;
-    }
-
-    private int LoadStreakDay()
-    {
-        return PlayerPrefs.GetInt(STREAK_DAY, 1);
-    }
-
-    private bool LoadClaimed()
-    {
-        return PlayerPrefs.GetInt(IS_CLAIMED, 0) == 1;
-    }
-
-    private DateTime GetLastTimeVisited()
-    {
-        string savedTimeString = PlayerPrefs.GetString(LAST_TIME_VISITED);
-
-        if (DateTime.TryParse(savedTimeString, out DateTime savedTime))
+        private bool LoadClaimed()
         {
-            return savedTime;
+            return PlayerPrefs.GetInt(IS_CLAIMED, 0) == 1;
         }
 
-        return DateTime.Now;
+        private DateTime GetLastTimeVisited()
+        {
+            string savedTimeString = PlayerPrefs.GetString(LAST_TIME_VISITED);
+
+            if (DateTime.TryParse(savedTimeString, out DateTime savedTime))
+            {
+                return savedTime;
+            }
+
+            return DateTime.Now;
+        }
+
+        private void SaveParameters()
+        {
+            SaveLastTimeVisited();
+            SaveStreakDay();
+            SaveClaimed();
+
+            PlayerPrefs.Save();
+        }
+
+        private void SaveLastTimeVisited()
+        {
+            string currentTime = DateTime.Now.ToString();
+            PlayerPrefs.SetString(LAST_TIME_VISITED, currentTime);
+        }
+
+        private void SaveClaimed()
+        {
+            PlayerPrefs.SetInt(IS_CLAIMED, _isClaimed ? 1 : 0);
+        }
+
+        private void SaveStreakDay()
+        {
+            PlayerPrefs.SetInt(STREAK_DAY, _streakDay);
+        }
+
+        public int GetStreakDay()
+        {
+            return _streakDay;
+        }
+
+        public bool GetIsClaimed()
+        {
+            return _isClaimed;
+        }
+
+        public void ClaimBonus()
+        {
+            _isClaimed = true;
+
+            SaveClaimed();
+        }
+
     }
-
-    private void SaveParameters()
-    {
-        SaveLastTimeVisited();
-        SaveStreakDay();
-        SaveClaimed();
-
-        PlayerPrefs.Save();
-    }
-
-    private void SaveLastTimeVisited()
-    {
-        string currentTime = DateTime.Now.ToString();
-        PlayerPrefs.SetString(LAST_TIME_VISITED, currentTime);
-    }
-
-    private void SaveClaimed()
-    {
-        PlayerPrefs.SetInt(IS_CLAIMED, _isClaimed ? 1 : 0);
-    }
-
-    private void SaveStreakDay()
-    {
-        PlayerPrefs.SetInt(STREAK_DAY, _streakDay);
-    }
-
-    public int GetStreakDay()
-    {
-        return _streakDay;
-    }
-
-    public bool GetIsClaimed()
-    {
-        return _isClaimed;
-    }
-
-    public void ClaimBonus()
-    {
-        _isClaimed = true;
-
-        SaveClaimed();
-    }
-
 }

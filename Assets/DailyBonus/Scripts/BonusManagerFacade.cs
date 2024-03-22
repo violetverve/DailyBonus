@@ -1,48 +1,52 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DailyBonus.Inventory;
 
-public class BonusManagerFacade : MonoBehaviour
+namespace DailyBonus
 {
-    public static BonusManagerFacade Instance { get; private set; }
-
-    [SerializeField] private ItemStorage _itemStorage;
-    [SerializeField] private BonusConfigParser _bonusConfigParser;
-    [SerializeField] private BonusManager _bonusManager;
-
-    private void Awake()
+    public class BonusManagerFacade : MonoBehaviour
     {
-        Instance = this;
-    }
+        public static BonusManagerFacade Instance { get; private set; }
 
-    public ItemSO GetItemById(Item id)
-    {
-        return _itemStorage.GetItemById(id);
-    }
+        [SerializeField] private ItemStorage _itemStorage;
+        [SerializeField] private BonusConfigParser _bonusConfigParser;
+        [SerializeField] private BonusManager _bonusManager;
 
-    public List<Bonus> GetBonusList()
-    {
-        return _bonusConfigParser.GetBonusList();
-    }
+        private void Awake()
+        {
+            Instance = this;
+        }
 
-    public Bonus GetCurrentBonus()
-    {
-        return _bonusConfigParser.GetBonusList()[_bonusManager.GetStreakDay()];
-    }
+        public ItemSO GetItemById(Item id)
+        {
+            return _itemStorage.GetItemById(id);
+        }
 
-    public int GetStreakDay()
-    {
-        return _bonusManager.GetStreakDay();
-    }
+        public List<Bonus> GetBonusList()
+        {
+            return _bonusConfigParser.GetBonusList();
+        }
 
-    public bool GetIsClaimed()
-    {
-        return _bonusManager.GetIsClaimed();
-    }
-    
-    public void ClaimBonus()
-    {
-        _bonusManager.ClaimBonus();
-    }
+        public Bonus GetCurrentBonus()
+        {
+            return _bonusConfigParser.GetBonusList()[_bonusManager.GetStreakDay()];
+        }
 
+        public int GetStreakDay()
+        {
+            return _bonusManager.GetStreakDay();
+        }
+
+        public bool GetIsClaimed()
+        {
+            return _bonusManager.GetIsClaimed();
+        }
+        
+        public void ClaimBonus()
+        {
+            _bonusManager.ClaimBonus();
+        }
+
+    }
 }
