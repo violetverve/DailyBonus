@@ -1,37 +1,3 @@
-// using UnityEngine;
-// using System.Collections.Generic;
-// using System.IO;
-// using Newtonsoft.Json;
-
-// public static class BonusConfigParser: MonoBehaviour
-// {
-//     private const string _pathString = "Resources/DailyBonusesConfig.json";
-//     private static BonusConfig _bonusesConfig;
-//     private static string _filePath = Path.Combine(Application.dataPath, _pathString);
-
-//     public static List<Bonus> LoadBonusesConfig()
-//     {
-//         if (File.Exists(_filePath))
-//         {
-//             string jsonText = File.ReadAllText(_filePath);
-//             _bonusesConfig = JsonConvert.DeserializeObject<BonusConfig>(jsonText);
-//         }
-//         else
-//         {
-//             Debug.LogError($"The file at {_filePath} does not exist.");
-//             return new List<Bonus>();
-//         }
-
-//         return _bonusesConfig.DailyBonuses;
-//     }
-
-//     public List<Bonus> GetBonuses()
-//     {
-//         return _bonusesConfig.DailyBonuses;
-//     }
-// }
-
-
 using UnityEngine;
 using System.Collections.Generic;
 using System.IO;
