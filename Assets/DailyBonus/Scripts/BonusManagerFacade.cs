@@ -28,11 +28,6 @@ namespace DailyBonus
             return _bonusConfigParser.GetBonusList();
         }
 
-        public Bonus GetCurrentBonus()
-        {
-            return _bonusConfigParser.GetBonusList()[_bonusManager.GetStreakDay()];
-        }
-
         public int GetStreakDay()
         {
             return _bonusManager.GetStreakDay();

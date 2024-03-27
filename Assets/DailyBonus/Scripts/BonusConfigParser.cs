@@ -18,7 +18,7 @@ namespace DailyBonus
             LoadBonusesConfig();
         }
 
-        public List<Bonus> LoadBonusesConfig()
+        public void LoadBonusesConfig()
         {
             if (File.Exists(_filePath))
             {
@@ -30,10 +30,7 @@ namespace DailyBonus
             else
             {
                 Debug.LogError($"The file at {_filePath} does not exist.");
-                return new List<Bonus>();
             }
-
-            return _bonusesConfig.DailyBonuses;
         }
 
         public List<Bonus> GetBonusList()
