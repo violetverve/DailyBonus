@@ -6,17 +6,22 @@ using System.Linq;
 
 namespace DailyBonus
 {
-    public class BonusManager : MonoBehaviour
+    [CreateAssetMenu(fileName = "BonusManager", menuName = "DailyBonus/BonusManager")]
+    public class BonusManagerSO : ScriptableObject
     {
         private const string IS_CLAIMED = "IsClaimed";
         private const string STREAK_DAY = "StreakDay";
         private const string LAST_TIME_VISITED = "LastTimeVisited";
+        
+        [SerializeField] private BonusConfigParserSO _bonusConfigParserSO;
 
         private int _streakDay;
         private bool _isClaimed;
 
-        private void Awake()
+        private void OnEnable()
         {
+            _bonusConfigParserSO.LoadBonusesConfig();
+            
             UpdateStreak();
 
             UpdateClaimed();

@@ -7,16 +7,11 @@ using DailyBonus.Inventory;
 
 namespace DailyBonus
 {
-    public class BonusConfigParser : MonoBehaviour
+    [CreateAssetMenu(fileName = "BonusConfigParser", menuName = "DailyBonus/BonusConfigParser")]
+    public class BonusConfigParserSO : ScriptableObject
     {
-
         private const string _filePath = "Assets/DailyBonus/DailyBonusesConfig.json";
         private BonusConfig _bonusesConfig;
-
-        private void Awake()
-        {
-            LoadBonusesConfig();
-        }
 
         public void LoadBonusesConfig()
         {

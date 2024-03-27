@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 88e4d4b57de2c7748acd5299b5590093, type: 3}
+  m_Name: BonusManagerFacade
+  m_EditorClassIdentifier: 
+  _itemStorageSO: {fileID: 11400000, guid: 680e7024007ec044ab6df979235addb9, type: 2}
+  _bonusConfigParserSO: {fileID: 11400000, guid: 6db71ca9038b45844aebbff0ecb701dd,
+    type: 2}
+  _bonusManagerSO: {fileID: 11400000, guid: 357a2fb3ee5e1af4a8cb1a53d3b5a970, type: 2}

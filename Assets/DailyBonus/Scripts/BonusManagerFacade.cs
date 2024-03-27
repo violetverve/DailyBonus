@@ -5,42 +5,39 @@ using DailyBonus.Inventory;
 
 namespace DailyBonus
 {
-    public class BonusManagerFacade : MonoBehaviour
+    [CreateAssetMenu(fileName = "BonusManagerFacade", menuName = "DailyBonus/BonusManagerFacade")]
+    public class BonusManagerFacadeSO : ScriptableObject
     {
-        public static BonusManagerFacade Instance { get; private set; }
-
-        [SerializeField] private ItemStorage _itemStorage;
-        [SerializeField] private BonusConfigParser _bonusConfigParser;
-        [SerializeField] private BonusManager _bonusManager;
-
-        private void Awake()
-        {
-            Instance = this;
-        }
+        [SerializeField] private ItemStorageSO _itemStorageSO;
+        [SerializeField] private BonusConfigParserSO _bonusConfigParserSO;
+        [SerializeField] private BonusManagerSO _bonusManagerSO;
 
         public ItemSO GetItemById(Item id)
         {
-            return _itemStorage.GetItemById(id);
+            return _itemStorageSO.GetItemById(id);
         }
 
-        public List<Bonus> GetBonusList()
+        public IEnumerable<Bonus> GetBonusList()
         {
-            return _bonusConfigParser.GetBonusList();
+            foreach (var bonus in _bonusConfigParserSO.GetBonusList())
+            {
+                yield return bonus;
+            }
         }
 
         public int GetStreakDay()
         {
-            return _bonusManager.GetStreakDay();
+            return _bonusManagerSO.GetStreakDay();
         }
 
         public bool GetIsClaimed()
         {
-            return _bonusManager.GetIsClaimed();
+            return _bonusManagerSO.GetIsClaimed();
         }
         
         public void ClaimBonus()
         {
-            _bonusManager.ClaimBonus();
+            _bonusManagerSO.ClaimBonus();
         }
 
     }

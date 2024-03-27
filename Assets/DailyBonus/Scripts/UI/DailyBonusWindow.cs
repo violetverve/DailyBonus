@@ -8,6 +8,7 @@ namespace DailyBonus.UI
 {
     public class DailyBonusWindow : MonoBehaviour
     {
+        [SerializeField] BonusManagerFacadeSO _bonusManagerFacadeSO;
         [SerializeField] BonusCardPool _bonusCardPool;
         private int _streakCardIndex;
         private BonusCardUI _currentCard;
@@ -15,14 +16,14 @@ namespace DailyBonus.UI
 
         private void Start()
         {   
-            _streakCardIndex = BonusManagerFacade.Instance.GetStreakDay() - 1;
+            _streakCardIndex = _bonusManagerFacadeSO.GetStreakDay() - 1;
 
             SetCards();
         }
 
         private void SetCards() 
         {
-            foreach (var bonus in BonusManagerFacade.Instance.GetBonusList())
+            foreach (var bonus in _bonusManagerFacadeSO.GetBonusList())
             {
                 BonusCardUI bonusCardUI = _bonusCardPool.GetCard();
                 bonusCardUI.SetCard(bonus);
@@ -44,7 +45,7 @@ namespace DailyBonus.UI
                 bonusCardUI.SetCurrent();
                 _currentCard = bonusCardUI;
 
-                if (BonusManagerFacade.Instance.GetIsClaimed())
+                if (_bonusManagerFacadeSO.GetIsClaimed())
                 {
                     ClaimCurrentCard();
                 }

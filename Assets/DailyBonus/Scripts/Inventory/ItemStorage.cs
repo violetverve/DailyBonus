@@ -4,7 +4,8 @@ using UnityEngine;
 
 namespace DailyBonus.Inventory
 {
-    public class ItemStorage : MonoBehaviour
+    [CreateAssetMenu(fileName = "ItemStorage", menuName = "DailyBonus/Inventory/ItemStorage")]
+    public class ItemStorageSO : ScriptableObject
     {
         [SerializeField] private List<ItemSO> _items;
 

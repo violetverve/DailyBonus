@@ -844,6 +844,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb94bf567404eec41a15d9a3e6e4653f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _bonusManagerFacadeSO: {fileID: 11400000, guid: 4f5a99ef05cc70148b40c680ebdc1c08,
+    type: 2}
   _dayText: {fileID: 2695084660956900980}
   _quantityText: {fileID: 4352349026555935538}
   _iconImage: {fileID: 2013507750096380732}
