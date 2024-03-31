@@ -37,7 +37,7 @@ namespace DailyBonus
             {
                 if (StreakBroken())
                 {
-                    _streakDay = 0;
+                    _streakDay = 1;
                 }
                 else
                 {
@@ -48,10 +48,7 @@ namespace DailyBonus
 
         private bool StreakBroken()
         {
-            DateTime lastTimeVisited = GetLastTimeVisited();
-            DateTime currentTime = DateTime.Now;
-
-            return lastTimeVisited.Date != DateTime.Today.AddDays(-1);
+            return GetLastTimeVisited().Date != DateTime.Today.AddDays(-1);
         }
 
 
