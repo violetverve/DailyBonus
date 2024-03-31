@@ -55,6 +55,7 @@ namespace DailyBonus.UI
         public void ClaimCurrentCard()
         {
             _currentCard.SetClaimed();
+            _currentCard.SetCurrentClaimed();
         }
          
     }

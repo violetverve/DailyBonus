@@ -19,6 +19,7 @@ namespace DailyBonus.UI
         [Header("Panels")]
         [SerializeField] private GameObject _claimedPanel;
         [SerializeField] private GameObject _currentPanel;
+        [SerializeField] private GameObject _currentClaimedPanel;
 
         public void SetCard(Bonus dailyBonus)
         {
@@ -41,6 +42,14 @@ namespace DailyBonus.UI
         {
             gameObject.SetActive(value);
         }
+
+        public void SetCurrentClaimed()
+        {
+            _currentPanel.SetActive(false);
+            _currentClaimedPanel.SetActive(true);
+        }
+
+
 
     }
 }
