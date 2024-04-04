@@ -6,10 +6,10 @@ using UnityEngine.Pool;
 
 namespace DailyBonus.UI
 {
-    public class DailyBonusWindow : MonoBehaviour
+    public class DailyBonusWindowUI : MonoBehaviour
     {
         [SerializeField] BonusManagerFacadeSO _bonusManagerFacadeSO;
-        [SerializeField] BonusCardPool _bonusCardPool;
+        [SerializeField] BonusCardPoolUI _bonusCardPoolUI;
         private int _streakCardIndex;
         private BonusCardUI _currentCard;
 
@@ -25,7 +25,7 @@ namespace DailyBonus.UI
         {
             foreach (var bonus in _bonusManagerFacadeSO.GetBonusList())
             {
-                BonusCardUI bonusCardUI = _bonusCardPool.GetCard();
+                BonusCardUI bonusCardUI = _bonusCardPoolUI.GetCard();
                 bonusCardUI.SetCard(bonus);
                 bonusCardUI.SetActive(true);
 
@@ -36,11 +36,11 @@ namespace DailyBonus.UI
         private void SetCardStatus(BonusCardUI bonusCardUI)
         {
 
-            if (_bonusCardPool.CountActive - 1 < _streakCardIndex)
+            if (_bonusCardPoolUI.CountActive - 1 < _streakCardIndex)
             {
                 bonusCardUI.SetClaimed();
             }
-            else if (_bonusCardPool.CountActive - 1 == _streakCardIndex)
+            else if (_bonusCardPoolUI.CountActive - 1 == _streakCardIndex)
             {
                 bonusCardUI.SetCurrent();
                 _currentCard = bonusCardUI;

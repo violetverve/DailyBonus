@@ -6,10 +6,10 @@ using UnityEngine.UI;
 
 namespace DailyBonus.UI
 {
-    public class ClaimButton : MonoBehaviour
+    public class ClaimButtonUI : MonoBehaviour
     {  
         [SerializeField] private BonusManagerFacadeSO _bonusManagerFacadeSO;
-        [SerializeField] private DailyBonusWindow _dailyBonusWindow;
+        [SerializeField] private DailyBonusWindowUI _dailyBonusWindow;
         [SerializeField] private Button _claimButton;
 
         private void Start()

@@ -654,7 +654,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1117632770}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4bc35bc2c584bd04499c8527c2511127, type: 3}
+  m_Script: {fileID: 11500000, guid: 39f76d882d0ea8f4d973358f72bbc293, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _bonusCardPrefab: {fileID: 336255544315556090, guid: fbb95cc3fff917b41b694f343315639d,
@@ -696,7 +696,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _bonusManagerFacadeSO: {fileID: 11400000, guid: 4f5a99ef05cc70148b40c680ebdc1c08,
     type: 2}
-  _bonusCardPool: {fileID: 1117632773}
+  _bonusCardPoolUI: {fileID: 1117632773}
 --- !u!114 &1715209588
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -952,7 +952,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1727500647}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6589b8bf4cbd3b049a54d419843024ab, type: 3}
+  m_Script: {fileID: 11500000, guid: 0a1edc3cc4ee4c649ba67f3e8d9fc1e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _bonusManagerFacadeSO: {fileID: 11400000, guid: 4f5a99ef05cc70148b40c680ebdc1c08,

@@ -5,7 +5,7 @@ using UnityEngine.Pool;
 
 namespace DailyBonus.UI
 {
-    public class BonusCardPool : MonoBehaviour
+    public class BonusCardPoolUI : MonoBehaviour
     {
         [SerializeField] private BonusCardUI _bonusCardPrefab;
         [SerializeField] private int _defaultCapacity = 7;
